@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  MyHomePage(title: 'Flutter Home Page'),
+      home: MyHomePage(title: 'Flutter Home Page'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -57,10 +57,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool _isTextButtonVisible = true;
 
   void _incrementCounter() {
     setState(() {
-      _counter = _counter+2;
+      _counter = _counter + 2;
     });
   }
 
@@ -113,12 +114,40 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
   }
-  final ButtonStyle buttonStyle=ElevatedButton.styleFrom(
-    padding: EdgeInsets.all(100),
-    backgroundColor: Colors.purple,
-    foregroundColor:Colors.white
 
-  );
+  MyAlertDialog(msg, context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Expanded(
+              child: AlertDialog(
+            title: Text("Alert!...."),
+            content: Text("Do u sure want to delete it ?"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    mySnackbar("yes, deleted", context);
+                    setState(() {
+                      _isTextButtonVisible = false;
+                    });
+                    null;
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Yes")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("No")),
+            ],
+          ));
+        });
+  }
+
+  final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      padding: EdgeInsets.all(100),
+      backgroundColor: Colors.purple,
+      foregroundColor: Colors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -128,16 +157,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-     ButtonStyle buttonStyle=ElevatedButton.styleFrom(
+    ButtonStyle buttonStyle = ElevatedButton.styleFrom(
         padding: EdgeInsets.all(15),
         backgroundColor: Colors.deepPurple,
-
-        foregroundColor:Colors.white,
-       shape: RoundedRectangleBorder(
-         borderRadius: BorderRadius.all(Radius.circular(15))
-       )
-
-    );
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15))));
     return Scaffold(
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
@@ -152,9 +177,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center ,
-          children:
-          <Widget>[
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
             // const Text(
             //   'You have pushed the button this many times:',
             // ),
@@ -165,9 +189,24 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(onPressed: (){mySnackbar("this is text Button", context);}, child: Text('Text '),style: buttonStyle,),
-                OutlinedButton(onPressed: (){mySnackbar("This is Outline Button", context);}, child: Text('Outline ') ),
-                ElevatedButton(onPressed: (){mySnackbar("This is Elevated Button", context);}, child: Text('Elevate ')),
+                if (_isTextButtonVisible)
+                  TextButton(
+                    onPressed: () {
+                      MyAlertDialog("this is text Button", context);
+                    },
+                    child: Text('Text '),
+                    style: buttonStyle,
+                  ),
+                OutlinedButton(
+                    onPressed: () {
+                      mySnackbar("This is Outline Button", context);
+                    },
+                    child: Text('Outline ')),
+                ElevatedButton(
+                    onPressed: () {
+                      mySnackbar("This is Elevated Button", context);
+                    },
+                    child: Text('Elevate ')),
               ],
             )
           ],
