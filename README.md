@@ -1,6 +1,6 @@
 # flutter_project
 
-A  Flutter project.
+A  Flutter project practice repo..
 
 ## Getting Started
 
