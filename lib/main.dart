@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Home Page'),
+      home:  MyHomePage(title: 'Flutter Home Page'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -113,6 +113,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
   }
+  final ButtonStyle buttonStyle=ElevatedButton.styleFrom(
+    padding: EdgeInsets.all(100),
+    backgroundColor: Colors.purple,
+    foregroundColor:Colors.white
+
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +128,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+     ButtonStyle buttonStyle=ElevatedButton.styleFrom(
+        padding: EdgeInsets.all(15),
+        backgroundColor: Colors.deepPurple,
+
+        foregroundColor:Colors.white,
+       shape: RoundedRectangleBorder(
+         borderRadius: BorderRadius.all(Radius.circular(15))
+       )
+
+    );
     return Scaffold(
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
@@ -136,18 +152,28 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+          mainAxisAlignment: MainAxisAlignment.center ,
+          children:
+          <Widget>[
+            // const Text(
+            //   'You have pushed the button this many times:',
+            // ),
+            // Text(
+            //   '$_counter',
+            //   style: Theme.of(context).textTheme.headlineMedium,
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(onPressed: (){mySnackbar("this is text Button", context);}, child: Text('Text '),style: buttonStyle,),
+                OutlinedButton(onPressed: (){mySnackbar("This is Outline Button", context);}, child: Text('Outline ') ),
+                ElevatedButton(onPressed: (){mySnackbar("This is Elevated Button", context);}, child: Text('Elevate ')),
+              ],
+            )
           ],
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
