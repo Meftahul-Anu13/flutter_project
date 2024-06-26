@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         message = 'School selected';
 
-        curve:
+
         Curves.easeOut;
         break;
       case 2:
@@ -245,27 +245,50 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
+          children:  [
+            DrawerHeader(
               decoration: BoxDecoration(
                   //color:Color.fromRGBO(191, 153, 200, 0.5),
 
                   ),
-              child: Text('Drawer Header'),
+              child: Row(
+                children: [
+                  // Profile picture
+                  CircleAvatar(
+                    radius: 30, // Radius of the profile picture
+                    backgroundImage: NetworkImage(
+                      'https://marketplace.canva.com/EAFWqgieqss/1/0/1600w/canva-blue-and-peach-gradient-facebook-profile-picture-oBy0jAd4JFY.jpg',
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.person, size: 24), // Icon
+                          SizedBox(
+                              width: 5), // Space between the icon and the text
+                          Text('My Profile', style: TextStyle(fontSize: 18)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             ListTile(
+              leading: Icon(Icons.home),
               title: const Text('Home'),
               onTap: () {
-                // Update the state of the app.
-                // ...
                 mySnackbar("This is Home", context);
               },
             ),
             ListTile(
+              leading: Icon(Icons.location_city),
               title: const Text('Address'),
               onTap: () {
-                // Update the state of the app.
-                // ...
                 mySnackbar("This is Address", context);
               },
             ),
